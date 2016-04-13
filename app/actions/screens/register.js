@@ -1,7 +1,18 @@
+const RESET_REGISTER_FORM = 'RESET_REGISTER_FORM'
 const TYPE_REGISTER_USERNAME = 'TYPE_REGISTER_USERNAME'
 const TYPE_REGISTER_EMAIL = 'TYPE_REGISTER_EMAIL'
 const TYPE_REGISTER_PASSWORD = 'TYPE_REGISTER_PASSWORD'
 const TYPE_REGISTER_PASSWORD_CONFIRMATION = 'TYPE_REGISTER_PASSWORD_CONFIRMATION'
+
+/**
+ * Action - Resets the register form
+ *
+ */
+export function resetRegisterForm() {
+    return {
+        type: RESET_REGISTER_FORM
+    }
+}
 
 /**
  * Action - Typing in the username field on the registration screen

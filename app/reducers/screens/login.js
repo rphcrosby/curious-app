@@ -6,11 +6,13 @@ import {
     RECEIVE_USER_AUTHENTICATION_ERROR
 } from '../../actions/api/authentication'
 
-function login(state = {
+var defaultState = {
     username: '',
     password: '',
     error: ''
-}, action) {
+}
+
+function login(state = defaultState, action) {
     switch (action.type) {
         case 'TYPE_LOGIN_USERNAME':
             return Object.assign({}, state, {
@@ -26,6 +28,8 @@ function login(state = {
             return Object.assign({}, state, {
                 error: action.response.message
             });
+        case 'RESET_LOGIN_FORM':
+            return defaultState;
         default:
             return state;
     }

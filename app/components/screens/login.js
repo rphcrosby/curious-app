@@ -9,6 +9,7 @@ import { connect } from 'react-redux'
 
 // Import screen actions
 import {
+    resetLoginForm,
     typeLoginUsername,
     typeLoginPassword
 } from '../../actions/screens/login'
@@ -35,6 +36,7 @@ const mapStateToProps = (state) => {
 class Login extends Component
 {
     goToRegister() {
+        this.props.dispatch(resetLoginForm())
         this.props.navigator.push({ id: 'register.step1' })
     }
 

@@ -35,13 +35,17 @@ const forms = StyleSheet.create({
         textAlign: 'left',
         fontWeight: 'bold',
         color: '#A4D8CC',
-        flex: 1
+        flex: 1,
+        paddingTop: 10,
+        paddingBottom: 10
     },
     proceed: {
         textAlign: 'right',
         fontWeight: 'bold',
         color: '#A4D8CC',
-        flex: 1
+        flex: 1,
+        paddingTop: 10,
+        paddingBottom: 10
     }
 });
 

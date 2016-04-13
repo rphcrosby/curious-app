@@ -1,4 +1,5 @@
 import {
+    RESET_REGISTER_FORM,
     TYPE_REGISTER_USERNAME,
     TYPE_REGISTER_EMAIL,
     TYPE_REGISTER_PASSWORD,
@@ -8,13 +9,15 @@ import {
     RECEIVE_USER_CREATE_ERROR
 } from '../../actions/api/user/create'
 
-function register(state = {
+var defaultState = {
     username: '',
     email: '',
     password: '',
     password_confirmation: '',
     errors: []
-}, action) {
+}
+
+function register(state = defaultState, action) {
     switch (action.type) {
         case 'TYPE_REGISTER_USERNAME':
             return Object.assign({}, state, {
@@ -40,6 +43,8 @@ function register(state = {
             return Object.assign({}, state, {
                 errors: action.response.errors
             });
+        case 'RESET_REGISTER_FORM':
+            return defaultState
         default:
             return state;
     }

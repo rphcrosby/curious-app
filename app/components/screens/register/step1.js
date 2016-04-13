@@ -9,6 +9,7 @@ import { connect } from 'react-redux'
 
 // Import screen actions
 import {
+    resetRegisterForm,
     typeRegisterUsername,
     typeRegisterEmail,
     typeRegisterPassword,
@@ -48,6 +49,7 @@ class Step1 extends Component
     }
 
     backToRegistration() {
+        this.props.dispatch(resetRegisterForm())
         this.props.navigator.pop()
     }
 
