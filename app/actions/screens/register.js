@@ -3,6 +3,10 @@ const TYPE_REGISTER_EMAIL = 'TYPE_REGISTER_EMAIL'
 const TYPE_REGISTER_PASSWORD = 'TYPE_REGISTER_PASSWORD'
 const TYPE_REGISTER_PASSWORD_CONFIRMATION = 'TYPE_REGISTER_PASSWORD_CONFIRMATION'
 
+/**
+ * Action - Typing in the username field on the registration screen
+ *
+ */
 export function typeRegisterUsername(text) {
     return {
         type: TYPE_REGISTER_USERNAME,
@@ -10,6 +14,10 @@ export function typeRegisterUsername(text) {
     }
 }
 
+/**
+ * Action - Typing in the email field on the registration screen
+ *
+ */
 export function typeRegisterEmail(text) {
     return {
         type: TYPE_REGISTER_EMAIL,
@@ -17,6 +25,10 @@ export function typeRegisterEmail(text) {
     }
 }
 
+/**
+ * Action - Typing in the password field on the registration screen
+ *
+ */
 export function typeRegisterPassword(text) {
     return {
         type: TYPE_REGISTER_PASSWORD,
@@ -24,6 +36,10 @@ export function typeRegisterPassword(text) {
     }
 }
 
+/**
+ * Action - Typing in the password confirmations field on the registration screen
+ *
+ */
 export function typeRegisterPasswordConfirmation(text) {
     return {
         type: TYPE_REGISTER_PASSWORD_CONFIRMATION,

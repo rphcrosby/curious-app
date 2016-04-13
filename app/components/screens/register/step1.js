@@ -22,6 +22,11 @@ import { sendUserCreate } from '../../../actions/api/user/create'
 import screens from '../../../stylesheets/screens'
 import forms from '../../../stylesheets/forms'
 
+/**
+ * Determine what parts of the state to pass to the component
+ *
+ * @param object state
+ */
 const mapStateToProps = (state) => {
     return {
         user: state.api.user,
@@ -31,6 +36,11 @@ const mapStateToProps = (state) => {
 
 class Step1 extends Component
 {
+    /**
+     * When the state updates, check whether we should be progressing to the
+     * next screen or not
+     *
+     */
     componentDidUpdate() {
         if (this.props.user.user !== null) {
             this.props.navigator.push({ id: 'register.step2' })

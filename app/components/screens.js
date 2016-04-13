@@ -4,13 +4,23 @@ import React from 'react-native';
 import step1 from './screens/register/step1'
 import step2 from './screens/register/step2'
 
+/**
+ * Selects a scene to show based on the ID of the route that was passed
+ *
+ * @param object route
+ * @param object nav
+ */
 function sceneSelector(route, nav) {
+
+    // Specify the default route that should be shown when no route is passed
     var Component = step1
 
+    // If no route was specified then fallback to the default route
     if (route == undefined) {
         return <Component navigator={nav} />
     }
 
+    // Figure out the right screen component to show based on the passed route ID
     switch (route.id) {
         case 'register.step1':
             Component = step1
