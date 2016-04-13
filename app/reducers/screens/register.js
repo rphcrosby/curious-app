@@ -13,24 +13,28 @@ function register(state = {
     email: '',
     password: '',
     password_confirmation: '',
-    errors: ''
+    errors: []
 }, action) {
     switch (action.type) {
         case 'TYPE_REGISTER_USERNAME':
             return Object.assign({}, state, {
-                username: action.text
+                username: action.text,
+                errors: []
             });
         case 'TYPE_REGISTER_EMAIL':
             return Object.assign({}, state, {
-                email: action.text
+                email: action.text,
+                errors: []
             });
         case 'TYPE_REGISTER_PASSWORD':
             return Object.assign({}, state, {
-                password: action.text
+                password: action.text,
+                errors: []
             });
         case 'TYPE_REGISTER_PASSWORD_CONFIRMATION':
             return Object.assign({}, state, {
-                password_confirmation: action.text
+                password_confirmation: action.text,
+                errors: []
             });
         case 'RECEIVE_USER_CREATE_ERROR':
             return Object.assign({}, state, {

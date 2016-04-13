@@ -47,6 +47,10 @@ class Step1 extends Component
         }
     }
 
+    backToRegistration() {
+        this.props.navigator.pop()
+    }
+
     render() {
         const { register, dispatch } = this.props
         return (
@@ -100,12 +104,14 @@ class Step1 extends Component
                     </View>
                     <Text style={forms.text_error}>{ register.errors.password_confirmation }</Text>
 
-                    <Text
-                        style={forms.proceed}
-                        onPress={() => dispatch(sendUserCreate())}
-                    >
-                        PROCEED
-                    </Text>
+                    <View style={forms.form_buttons}>
+                        <Text style={forms.back} onPress={() => this.backToRegistration()}>
+                            BACK
+                        </Text>
+                        <Text style={forms.proceed} onPress={() => dispatch(sendUserCreate())}>
+                            PROCEED
+                        </Text>
+                    </View>
                 </View>
             </View>
         )

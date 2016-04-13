@@ -6,6 +6,10 @@ const forms = StyleSheet.create({
         paddingLeft: 50,
         paddingRight: 50
     },
+    form_buttons: {
+        flex: 1,
+        flexDirection: 'row'
+    },
     text_wrapper: {
         height: 40,
         borderBottomColor: '#CFD6DE',
@@ -27,10 +31,17 @@ const forms = StyleSheet.create({
         marginTop: 10,
         fontSize: 12
     },
+    back: {
+        textAlign: 'left',
+        fontWeight: 'bold',
+        color: '#A4D8CC',
+        flex: 1
+    },
     proceed: {
         textAlign: 'right',
         fontWeight: 'bold',
-        color: '#A4D8CC'
+        color: '#A4D8CC',
+        flex: 1
     }
 });
 
