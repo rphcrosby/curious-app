@@ -1,4 +1,4 @@
-import fetch from 'isomorphic-fetch'
+import curious from '../../../modules/api'
 
 const REQUEST_USER_CREATE = 'REQUEST_USER_CREATE'
 const RECEIVE_USER_CREATE = 'RECEIVE_USER_CREATE'
@@ -13,16 +13,11 @@ export function requestUserCreate() {
 export function sendUserCreate() {
     return (dispatch, getState) => {
         dispatch(requestUserCreate())
-        return fetch(`http://curious-api.app/users`, {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/vnd.curious.v1+json',
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + getState().api.authentication.access_token
-            },
-            body: JSON.stringify(getState().screens.register)
-        }).then(response => response.json())
-        .then(json => {
+        return curious(
+            'POST',
+            'users',
+            JSON.stringify(getState().screens.register), getState()
+        ).then(json => {
             // If an error was received then dispatch an error event
             if (json.status_code == 422) {
                 return dispatch(receiveUserCreateError(json))

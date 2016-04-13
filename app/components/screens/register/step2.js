@@ -5,7 +5,7 @@ import React, {
 } from 'react-native'
 import { connect } from 'react-redux'
 
-let RegisterConfirmation = ({ dispatch }) => {
+let Step2 = ({ dispatch }) => {
     return (
         <View>
             <Text>LOL</Text>
@@ -13,6 +13,6 @@ let RegisterConfirmation = ({ dispatch }) => {
     )
 }
 
-RegisterConfirmation = connect()(RegisterConfirmation)
+Step2 = connect()(Step2)
 
-export default RegisterConfirmation;
+export default Step2;

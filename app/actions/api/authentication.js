@@ -1,4 +1,7 @@
-import fetch from 'isomorphic-fetch'
+import curious, {
+    CURIOUS_CLIENT_ID,
+    CURIOUS_CLIENT_SECRET
+} from '../../modules/api'
 
 const REQUEST_CLIENT_AUTHENTICATION = 'REQUEST_CLIENT_AUTHENTICATION'
 const RECEIVE_CLIENT_AUTHENTICATION = 'RECEIVE_CLIENT_AUTHENTICATION'
@@ -20,19 +23,15 @@ export function requestClientAuthentication() {
 export function sendClientAuthentication() {
     return dispatch => {
         dispatch(requestClientAuthentication())
-        return fetch(`http://curious-api.app/authentication/client`, {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/vnd.curious.v1+json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
+        return curious(
+            'POST',
+            'authentication/client',
+            JSON.stringify({
                 grant_type: 'client_credentials',
-                client_id: 'FCOdtUbeEwKVoY70eoEznOjAkD73UnCLdYTRuMmV',
-                client_secret: 'RmeuI6faOUx9vW14gwzTxf8fENGTrf9Js8GSH3cr'
+                client_id: CURIOUS_CLIENT_ID,
+                client_secret: CURIOUS_CLIENT_SECRET
             })
-        }).then(response => response.json())
-        .then(json => dispatch(receieveClientAuthentication(json)))
+        ).then(json => dispatch(receieveClientAuthentication(json)))
         .done()
     }
 }
