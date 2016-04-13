@@ -12,6 +12,7 @@ import {
     typeRegisterPasswordConfirmation
 } from '../../actions/screens/register'
 import { sendUserCreate } from '../../actions/api/user/create'
+import forms from '../../stylesheets/forms'
 
 const mapStateToProps = (state) => {
     return {
@@ -31,44 +32,60 @@ class Register extends Component
     render() {
         const { register, dispatch } = this.props
         return (
-            <View style={{ padding: 50 }}>
-                <Text style={{ fontSize: 12 }}>Username</Text>
-                <TextInput
-                    style={{height: 40, borderColor: 'gray', borderWidth: 1 }}
-                    onChangeText={(text) => dispatch(typeRegisterUsername(text))}
-                    value={register.username}
-                />
-                <Text style={{ fontSize: 12, marginBottom: 20, marginTop: 10, color: 'red' }}>{ register.errors.username }</Text>
+            <View style={forms.form}>
+                <Text style={forms.text_label}>USERNAME</Text>
+                <View style={forms.text_wrapper}>
+                    <TextInput
+                        style={forms.text_input}
+                        onChangeText={(text) => dispatch(typeRegisterUsername(text))}
+                        value={register.username}
+                        autoCapitalize={'none'}
+                        keyboardType={'numbers-and-punctuation'}
+                    />
+                </View>
+                <Text style={forms.text_error}>{ register.errors.username }</Text>
 
-                <Text style={{ fontSize: 12 }}>Email</Text>
-                <TextInput
-                    style={{height: 40, borderColor: 'gray', borderWidth: 1 }}
-                    onChangeText={(text) => dispatch(typeRegisterEmail(text))}
-                    value={register.email}
-                />
-                <Text style={{ fontSize: 12, marginBottom: 20, marginTop: 10, color: 'red' }}>{ register.errors.email }</Text>
+                <Text style={forms.text_label}>EMAIL</Text>
+                <View style={forms.text_wrapper}>
+                    <TextInput
+                        style={forms.text_input}
+                        onChangeText={(text) => dispatch(typeRegisterEmail(text))}
+                        value={register.email}
+                        autoCapitalize={'none'}
+                        keyboardType={'email-address'}
+                    />
+                </View>
+                <Text style={forms.text_error}>{ register.errors.email }</Text>
 
-                <Text style={{ fontSize: 12 }}>Password</Text>
-                <TextInput
-                    style={{height: 40, borderColor: 'gray', borderWidth: 1 }}
-                    onChangeText={(text) => dispatch(typeRegisterPassword(text))}
-                    value={register.password}
-                />
-                <Text style={{ fontSize: 12, marginBottom: 20, marginTop: 10, color: 'red' }}>{ register.errors.password }</Text>
+                <Text style={forms.text_label}>PASSWORD</Text>
+                <View style={forms.text_wrapper}>
+                    <TextInput
+                        style={forms.text_input}
+                        onChangeText={(text) => dispatch(typeRegisterPassword(text))}
+                        value={register.password}
+                        autoCapitalize={'none'}
+                        secureTextEntry={true}
+                    />
+                </View>
+                <Text style={forms.text_error}>{ register.errors.password }</Text>
 
-                <Text style={{ fontSize: 12 }}>Confirm Password</Text>
-                <TextInput
-                    style={{height: 40, borderColor: 'gray', borderWidth: 1 }}
-                    onChangeText={(text) => dispatch(typeRegisterPasswordConfirmation(text))}
-                    value={register.password_confirmation}
-                />
-                <Text style={{ fontSize: 12, marginBottom: 20, marginTop: 10, color: 'red' }}>{ register.errors.password_confirmation }</Text>
+                <Text style={forms.text_label}>CONFIRM PASSWORD</Text>
+                <View style={forms.text_wrapper}>
+                    <TextInput
+                        style={forms.text_input}
+                        onChangeText={(text) => dispatch(typeRegisterPasswordConfirmation(text))}
+                        value={register.password_confirmation}
+                        autoCapitalize={'none'}
+                        secureTextEntry={true}
+                    />
+                </View>
+                <Text style={forms.text_error}>{ register.errors.password_confirmation }</Text>
 
                 <Text
-                    style={{ height: 40, textAlign: 'center', backgroundColor: 'gray'}}
+                    style={forms.proceed}
                     onPress={() => dispatch(sendUserCreate())}
                 >
-                    Submit
+                    PROCEED
                 </Text>
             </View>
         )

@@ -2,6 +2,7 @@ import React, { Component, Navigator, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import Register from './components/screens/register'
 import RegisterConfirmation from './components/screens/registerconfirmation'
+import main from './stylesheets/main'
 
 class App extends Component {
 
@@ -18,18 +19,12 @@ class App extends Component {
     render() {
         return (
             <Navigator
-                style={styles.wrapper}
+                style={main.wrapper}
                 renderScene={this._renderScene}
             />
         )
     }
 }
-
-var styles = StyleSheet.create({
-    wrapper: {
-        flex: 1,
-    }
-});
 
 App = connect()(App)
 
