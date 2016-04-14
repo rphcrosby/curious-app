@@ -56,8 +56,8 @@ class Step1 extends Component
     render() {
         const { register, dispatch } = this.props
         return (
-            <View style={screens.register}>
-                <View style={forms.form}>
+            <View style={screens.register.screen}>
+                <View style={[forms.form, screens.register.form]}>
                     <Text style={forms.text_label}>USERNAME</Text>
                     <View style={forms.text_wrapper}>
                         <TextInput

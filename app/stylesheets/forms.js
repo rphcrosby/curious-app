@@ -2,7 +2,6 @@ import React, { StyleSheet } from 'react-native';
 
 const forms = StyleSheet.create({
     form: {
-        paddingTop: 200,
         paddingLeft: 50,
         paddingRight: 50
     },

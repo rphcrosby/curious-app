@@ -43,8 +43,8 @@ class Login extends Component
     render() {
         const { login, dispatch } = this.props
         return (
-            <View style={screens.register}>
-                <View style={forms.form}>
+            <View style={screens.login.screen}>
+                <View style={[forms.form, screens.login.form]}>
                     <Text style={forms.text_label}>USERNAME</Text>
                     <View style={forms.text_wrapper}>
                         <TextInput
