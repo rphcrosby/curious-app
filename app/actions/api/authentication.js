@@ -5,6 +5,7 @@ import curious, {
 
 const REQUEST_CLIENT_AUTHENTICATION = 'REQUEST_CLIENT_AUTHENTICATION'
 const RECEIVE_CLIENT_AUTHENTICATION = 'RECEIVE_CLIENT_AUTHENTICATION'
+const RECEIVE_CLIENT_AUTHENTICATION_ERROR = 'RECEIVE_CLIENT_AUTHENTICATION_ERROR'
 const REQUEST_USER_AUTHENTICATION = 'REQUEST_USER_AUTHENTICATION'
 const RECEIVE_USER_AUTHENTICATION = 'RECEIVE_USER_AUTHENTICATION'
 const RECEIVE_USER_AUTHENTICATION_ERROR = 'RECEIVE_USER_AUTHENTICATION_ERROR'
@@ -34,8 +35,11 @@ export function sendClientAuthentication() {
                 client_id: CURIOUS_CLIENT_ID,
                 client_secret: CURIOUS_CLIENT_SECRET
             })
-        ).then(json => dispatch(receieveClientAuthentication(json)))
-        .done()
+        ).then(json => {
+            dispatch(receiveClientAuthentication(json))
+        }).catch(function() {
+            dispatch(receiveClientAuthenticationError())
+        }).done()
     }
 }
 
@@ -43,10 +47,20 @@ export function sendClientAuthentication() {
  * Action - Receive the client authentication response
  *
  */
-export function receieveClientAuthentication(json) {
+export function receiveClientAuthentication(json) {
     return {
         type: RECEIVE_CLIENT_AUTHENTICATION,
         token: json.access_token
+    }
+}
+
+/**
+ * Action - Receive the client authentication error response
+ *
+ */
+export function receiveClientAuthenticationError() {
+    return {
+        type: RECEIVE_CLIENT_AUTHENTICATION_ERROR
     }
 }
 
@@ -80,10 +94,10 @@ export function sendUserAuthentication() {
         ).then(json => {
             // If an error was received then dispatch an error event
             if (json.status_code == 500) {
-                return dispatch(receieveUserAuthenticationError(json))
+                return dispatch(receiveUserAuthenticationError(json))
             }
 
-            return dispatch(receieveUserAuthentication(json));
+            return dispatch(receiveUserAuthentication());
         }).done()
     }
 }
@@ -92,7 +106,7 @@ export function sendUserAuthentication() {
  * Action - Receive the user authentication response
  *
  */
-export function receieveUserAuthentication(json) {
+export function receiveUserAuthentication(json) {
     return {
         type: RECEIVE_USER_AUTHENTICATION,
         token: json.access_token
@@ -103,7 +117,7 @@ export function receieveUserAuthentication(json) {
  * Action - Receive the user authentication response error
  *
  */
-export function receieveUserAuthenticationError(json) {
+export function receiveUserAuthenticationError(json) {
     return {
         type: RECEIVE_USER_AUTHENTICATION_ERROR,
         response: json

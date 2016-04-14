@@ -7,4 +7,19 @@ const screens = StyleSheet.create({
     }
 });
 
+export const splash = StyleSheet.create({
+    'screen': {
+        flex: 1,
+        alignItems: 'center',
+        flexDirection: 'row'
+    },
+    status: {
+        flex: 1,
+        textAlign: 'center',
+        fontWeight: 'bold',
+        color: '#CFD6DE',
+        fontSize: 12
+    }
+});
+
 export default screens

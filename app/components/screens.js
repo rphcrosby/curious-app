@@ -4,6 +4,7 @@ import React from 'react-native';
 import step1 from './screens/register/step1'
 import step2 from './screens/register/step2'
 import login from './screens/login'
+import splash from './screens/splash'
 
 /**
  * Selects a scene to show based on the ID of the route that was passed
@@ -14,7 +15,7 @@ import login from './screens/login'
 function sceneSelector(route, nav) {
 
     // Specify the default route that should be shown when no route is passed
-    var Component = login
+    var Component = splash
 
     // If no route was specified then fallback to the default route
     if (route == undefined) {
