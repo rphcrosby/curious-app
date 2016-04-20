@@ -12,10 +12,11 @@ import {
     resetLoginForm,
     typeLoginUsername,
     typeLoginPassword
-} from '../../actions/screens/login'
+} from './actions'
 
 // Import API actions
-import { sendUserAuthentication } from '../../actions/api/authentication'
+import { sendUserAuthentication } from '../../api/authentication/actions'
+import { sendUserMe } from '../../api/user/actions/get'
 
 // Import stylesheets
 import screens from '../../stylesheets/screens'
@@ -28,6 +29,7 @@ import forms from '../../stylesheets/forms'
  */
 const mapStateToProps = (state) => {
     return {
+        authentication: state.api.authentication,
         user: state.api.user,
         login: state.screens.login
     };
@@ -35,6 +37,21 @@ const mapStateToProps = (state) => {
 
 class Login extends Component
 {
+    componentDidUpdate() {
+        if (this.props.authentication.status === 'AUTHENTICATION_STATE_USER_CONNECTED') {
+
+            // If the user isn't authenticated but we don't have their details then fetch them
+            if (this.props.authentication.user === null) {
+
+                this.props.dispatch(sendUserMe())
+            } else {
+
+                // If we have authenticated the user and have their details then progress to step 3
+                this.props.navigator.push({ id: 'register.step3' })
+            }
+        }
+    }
+
     goToRegister() {
         this.props.dispatch(resetLoginForm())
         this.props.navigator.push({ id: 'register.step1' })
@@ -74,7 +91,7 @@ class Login extends Component
                             REGISTER
                         </Text>
 
-                        <Text style={forms.proceed} onPress={() => dispatch(sendUserAuthentication())}>
+                        <Text style={forms.proceed} onPress={() => dispatch(sendUserAuthentication(login.username, login.password))}>
                             LOGIN
                         </Text>
                     </View>

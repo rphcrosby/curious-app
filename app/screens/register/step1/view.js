@@ -14,10 +14,12 @@ import {
     typeRegisterEmail,
     typeRegisterPassword,
     typeRegisterPasswordConfirmation
-} from '../../../actions/screens/register'
+} from './actions'
 
 // Import API actions
-import { sendUserCreate } from '../../../actions/api/user/create'
+import { sendUserCreate } from '../../../api/user/actions/create'
+import { sendUserAuthentication } from '../../../api/authentication/actions'
+import { sendUserMe } from '../../../api/user/actions/get'
 
 // Import stylesheets
 import screens from '../../../stylesheets/screens'
@@ -30,8 +32,9 @@ import forms from '../../../stylesheets/forms'
  */
 const mapStateToProps = (state) => {
     return {
+        authentication: state.api.authentication,
         user: state.api.user,
-        register: state.screens.register
+        step1: state.screens.step1
     };
 }
 
@@ -43,18 +46,59 @@ class Step1 extends Component
      *
      */
     componentDidUpdate() {
+
+        // If this user exists it means that step 1 of the registration completed
         if (this.props.user.user !== null) {
-            this.props.navigator.push({ id: 'register.step2' })
+
+            // If the user is not authenticated here then the next step is to authenticate them
+            if (this.props.authentication.status === 'AUTHENTICATION_STATE_CLIENT_CONNECTED') {
+
+                this.props.dispatch(sendUserAuthentication(
+                    this.props.step1.username,
+                    this.props.step1.password
+                ))
+
+            // Once the user is connected then we can progress
+            } else if (this.props.authentication.status === 'AUTHENTICATION_STATE_USER_CONNECTED') {
+
+                // If the user isn't authenticated but we don't have their details then fetch them
+                if (this.props.authentication.user === null) {
+
+                    this.props.dispatch(sendUserMe())
+                } else {
+
+                    // If we have authenticated the user and have their details then progress to step 3
+                    this.props.navigator.push({ id: 'register.step3' })
+                }
+            }
         }
     }
 
+    /**
+     * This shows the user a status on the registration page when it's submitted. It's not strictly
+     * accurate, but it beats a loading circle.
+     *
+     */
+    getStatus() {
+        if (this.props.authentication.status === 'AUTHENTICATION_STATE_CONNECTING') {
+            return 'CREATING USER'
+        } else if (this.props.authentication.status === 'AUTHENTICATION_STATE_USER_CONNECTED') {
+            return 'AUTHENTICATING USER'
+        }
+    }
+
+    /**
+     * Sends the user back to the login page if they click the back button from
+     * the register page
+     *
+     */
     backToRegistration() {
         this.props.dispatch(resetRegisterForm())
         this.props.navigator.pop()
     }
 
     render() {
-        const { register, dispatch } = this.props
+        const { step1, dispatch } = this.props
         return (
             <View style={screens.register.screen}>
                 <View style={[forms.form, screens.register.form]}>
@@ -63,48 +107,48 @@ class Step1 extends Component
                         <TextInput
                             style={forms.text_input}
                             onChangeText={(text) => dispatch(typeRegisterUsername(text))}
-                            value={register.username}
+                            value={step1.username}
                             autoCapitalize={'none'}
                             keyboardType={'numbers-and-punctuation'}
                         />
                     </View>
-                    <Text style={forms.text_error}>{ register.errors.username }</Text>
+                    <Text style={forms.text_error}>{ step1.errors.username }</Text>
 
                     <Text style={forms.text_label}>EMAIL</Text>
                     <View style={forms.text_wrapper}>
                         <TextInput
                             style={forms.text_input}
                             onChangeText={(text) => dispatch(typeRegisterEmail(text))}
-                            value={register.email}
+                            value={step1.email}
                             autoCapitalize={'none'}
                             keyboardType={'email-address'}
                         />
                     </View>
-                    <Text style={forms.text_error}>{ register.errors.email }</Text>
+                    <Text style={forms.text_error}>{ step1.errors.email }</Text>
 
                     <Text style={forms.text_label}>PASSWORD</Text>
                     <View style={forms.text_wrapper}>
                         <TextInput
                             style={forms.text_input}
                             onChangeText={(text) => dispatch(typeRegisterPassword(text))}
-                            value={register.password}
+                            value={step1.password}
                             autoCapitalize={'none'}
                             secureTextEntry={true}
                         />
                     </View>
-                    <Text style={forms.text_error}>{ register.errors.password }</Text>
+                    <Text style={forms.text_error}>{ step1.errors.password }</Text>
 
                     <Text style={forms.text_label}>CONFIRM PASSWORD</Text>
                     <View style={forms.text_wrapper}>
                         <TextInput
                             style={forms.text_input}
                             onChangeText={(text) => dispatch(typeRegisterPasswordConfirmation(text))}
-                            value={register.password_confirmation}
+                            value={step1.password_confirmation}
                             autoCapitalize={'none'}
                             secureTextEntry={true}
                         />
                     </View>
-                    <Text style={forms.text_error}>{ register.errors.password_confirmation }</Text>
+                    <Text style={forms.text_error}>{ step1.errors.password_confirmation }</Text>
 
                     <View style={forms.form_buttons}>
                         <Text style={forms.back} onPress={() => this.backToRegistration()}>
@@ -113,6 +157,10 @@ class Step1 extends Component
                         <Text style={forms.proceed} onPress={() => dispatch(sendUserCreate())}>
                             PROCEED
                         </Text>
+                    </View>
+
+                    <View>
+                        <Text style={forms.status}>{ this.getStatus() }</Text>
                     </View>
                 </View>
             </View>

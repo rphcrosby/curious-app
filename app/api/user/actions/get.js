@@ -1,4 +1,4 @@
-import curious from '../../../modules/api'
+import curious from '../../api'
 
 const REQUEST_USER_ME = 'REQUEST_USER_ME'
 const RECEIVE_USER_ME = 'RECEIVE_USER_ME'
@@ -17,12 +17,17 @@ export function requestUserMe() {
  * Action - Send the request to get the authenticated user
  *
  */
-export function sendUserMe() {
+export function sendUserMe(includes = [
+    'tags',
+    'subscribers'
+]) {
     return (dispatch, getState) => {
         dispatch(requestUserMe())
         return curious(
             'GET',
-            'users/me'
+            'users/me?include=' + includes.join(','),
+            null,
+            getState()
         ).then(json => {
             return dispatch(receiveUserMe(json));
         }).done()

@@ -1,7 +1,7 @@
 import curious, {
     CURIOUS_CLIENT_ID,
     CURIOUS_CLIENT_SECRET
-} from '../../modules/api'
+} from '../api'
 
 const REQUEST_CLIENT_AUTHENTICATION = 'REQUEST_CLIENT_AUTHENTICATION'
 const RECEIVE_CLIENT_AUTHENTICATION = 'RECEIVE_CLIENT_AUTHENTICATION'
@@ -78,7 +78,7 @@ export function requestUserAuthentication() {
  * Action - Send the user authentication request
  *
  */
-export function sendUserAuthentication() {
+export function sendUserAuthentication(username, password) {
     return (dispatch, getState) => {
         dispatch(requestUserAuthentication())
         return curious(
@@ -88,8 +88,8 @@ export function sendUserAuthentication() {
                 grant_type: 'password',
                 client_id: CURIOUS_CLIENT_ID,
                 client_secret: CURIOUS_CLIENT_SECRET,
-                username: getState().screens.login.username,
-                password: getState().screens.login.password
+                username: username,
+                password: password
             })
         ).then(json => {
             // If an error was received then dispatch an error event
@@ -97,7 +97,7 @@ export function sendUserAuthentication() {
                 return dispatch(receiveUserAuthenticationError(json))
             }
 
-            return dispatch(receiveUserAuthentication());
+            return dispatch(receiveUserAuthentication(json));
         }).done()
     }
 }

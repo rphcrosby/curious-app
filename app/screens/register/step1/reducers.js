@@ -4,10 +4,11 @@ import {
     TYPE_REGISTER_EMAIL,
     TYPE_REGISTER_PASSWORD,
     TYPE_REGISTER_PASSWORD_CONFIRMATION
-} from '../../actions/screens/register'
+} from './actions'
+
 import {
     RECEIVE_USER_CREATE_ERROR
-} from '../../actions/api/user/create'
+} from '../../../api/user/actions/create'
 
 var defaultState = {
     username: '',
@@ -17,7 +18,7 @@ var defaultState = {
     errors: []
 }
 
-function register(state = defaultState, action) {
+function step1(state = defaultState, action) {
     switch (action.type) {
         case 'TYPE_REGISTER_USERNAME':
             return Object.assign({}, state, {
@@ -50,5 +51,5 @@ function register(state = defaultState, action) {
     }
 }
 
-export default register;
+export default step1;
 

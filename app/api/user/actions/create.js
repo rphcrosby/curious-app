@@ -1,4 +1,4 @@
-import curious from '../../../modules/api'
+import curious from '../../api'
 
 const REQUEST_USER_CREATE = 'REQUEST_USER_CREATE'
 const RECEIVE_USER_CREATE = 'RECEIVE_USER_CREATE'
@@ -24,7 +24,7 @@ export function sendUserCreate() {
         return curious(
             'POST',
             'users',
-            JSON.stringify(getState().screens.register), getState()
+            JSON.stringify(getState().screens.register.step1), getState()
         ).then(json => {
             // If an error was received then dispatch an error event
             if (json.status_code == 422) {

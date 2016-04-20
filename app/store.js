@@ -1,9 +1,17 @@
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, combineReducers } from 'redux';
 import createLogger from 'redux-logger'
 import thunkMiddleware from 'redux-thunk'
-import rootReducer from './reducers/root';
+
+// Import reducers
+import { apiReducer } from './api/reducers'
+import { screenReducer } from './screens/reducers'
 
 const loggerMiddleware = createLogger();
+
+const rootReducer = combineReducers({
+    api: apiReducer,
+    screens: screenReducer
+});
 
 const store = createStore(
     rootReducer,

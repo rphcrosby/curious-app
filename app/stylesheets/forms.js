@@ -2,11 +2,11 @@ import React, { StyleSheet } from 'react-native';
 
 const forms = StyleSheet.create({
     form: {
-        paddingLeft: 50,
-        paddingRight: 50
+        paddingLeft: 25,
+        paddingRight: 25
     },
     form_buttons: {
-        flex: 1,
+        height: 24,
         flexDirection: 'row'
     },
     text_wrapper: {
@@ -45,6 +45,20 @@ const forms = StyleSheet.create({
         flex: 1,
         paddingTop: 10,
         paddingBottom: 10
+    },
+    button: {
+        fontWeight: 'bold',
+        color: '#A4D8CC',
+        flex: 1,
+        paddingTop: 10,
+        paddingBottom: 10
+    },
+    status: {
+        paddingTop: 20,
+        textAlign: 'center',
+        fontWeight: 'bold',
+        color: '#CFD6DE',
+        fontSize: 12
     }
 });
 

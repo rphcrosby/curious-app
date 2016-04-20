@@ -10,12 +10,12 @@ import { connect } from 'react-redux'
 import {
     AUTHENTICATION_STATE_DISCONNECTED,
     AUTHENTICATION_STATE_CONNECTING,
-    AUTHENTICATION_STATE_CONNECTED,
+    AUTHENTICATION_STATE_CLIENT_CONNECTED,
     AUTHENTICATION_STATE_FAILED
-} from '../../reducers/api/authentication'
+} from '../../api/authentication/reducers'
 
 // Import API actions
-import { sendClientAuthentication } from '../../actions/api/authentication'
+import { sendClientAuthentication } from '../../api/authentication/actions'
 
 // Import stylesheets
 import { splash } from '../../stylesheets/screens'
@@ -45,7 +45,7 @@ class Splash extends Component
         switch (this.props.authentication.status) {
             case 'AUTHENTICATION_STATE_CONNECTING':
                 return 'CONNECTING TO CURIOUS'
-            case 'AUTHENTICATION_STATE_CONNECTED':
+            case 'AUTHENTICATION_STATE_CLIENT_CONNECTED':
                 setTimeout(() => {
                     this.goToLogin()
                 }, 1000)

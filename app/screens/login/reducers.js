@@ -1,10 +1,11 @@
 import {
     TYPE_LOGIN_USERNAME,
     TYPE_LOGIN_PASSWORD
-} from '../../actions/screens/login'
+} from './actions'
+
 import {
     RECEIVE_USER_AUTHENTICATION_ERROR
-} from '../../actions/api/authentication'
+} from '../../api/authentication/actions'
 
 var defaultState = {
     username: '',
