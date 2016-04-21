@@ -23,6 +23,20 @@ const screens = {
             flex: 1
         }
     }),
+    register_step2: StyleSheet.create({
+        'screen': {
+            flex: 1,
+            alignItems: 'center',
+            flexDirection: 'row'
+        },
+        'button': {
+            flex: 1,
+            textAlign: 'center',
+            fontWeight: 'bold',
+            color: '#CFD6DE',
+            fontSize: 12
+        }
+    }),
     register_step3: StyleSheet.create({
         'screen': {
             backgroundColor: '#fff',

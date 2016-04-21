@@ -61,6 +61,10 @@ class Step3 extends Component
         }
     }
 
+    toDashboard() {
+        this.props.navigator.replace({ id: 'dashboard' })
+    }
+
     generateListView() {
         var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
         var tags = this.props.search.results.tags;
@@ -93,7 +97,7 @@ class Step3 extends Component
                 </View>
                 <View style={screens.register_step3.buttons}>
                     <View style={forms.form_buttons}>
-                        <Text style={forms.proceed} onPress={() => dispatch(sendUserCreate())}>
+                        <Text style={forms.proceed} onPress={() => this.toDashboard()}>
                             FINISH
                         </Text>
                     </View>
@@ -102,16 +106,16 @@ class Step3 extends Component
         )
     }
 
-    _handleSubscribeButtonPress(id) {
-        if (this.props.user.hasTag(id)) {
-            this.props.dispatch(sendTagUnsubscribe([id]))
+    _handleSubscribeButtonPress(name) {
+        if (this.props.user.hasTag(name)) {
+            this.props.dispatch(sendTagUnsubscribe([name]))
         } else {
-            this.props.dispatch(sendTagSubscribe([id]))
+            this.props.dispatch(sendTagSubscribe([name]))
         }
     }
 
-    _renderSubscribeButtonText(id) {
-        if (this.props.user.hasTag(id)) {
+    _renderSubscribeButtonText(name) {
+        if (this.props.user.hasTag(name)) {
             return 'UNSUBSCRIBE'
         } else {
             return 'SUBSCRIBE'
@@ -121,11 +125,11 @@ class Step3 extends Component
     _renderRow(rowData) {
         return (
             <View style={screens.register_step3.subscribe}>
-                <Text style={screens.register_step3.subscribe_text}>{ rowData.name }</Text>
+                <Text style={screens.register_step3.subscribe_text}>{ '#' + rowData.name }</Text>
                 <Text
                     style={[forms.button, screens.register_step3.subscribe_button]}
-                    onPress={() => this._handleSubscribeButtonPress(rowData.id) }
-                >{ this._renderSubscribeButtonText(rowData.id) }</Text>
+                    onPress={() => this._handleSubscribeButtonPress(rowData.name) }
+                >{ this._renderSubscribeButtonText(rowData.name) }</Text>
             </View>
         )
     }

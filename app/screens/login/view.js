@@ -47,14 +47,14 @@ class Login extends Component
             } else {
 
                 // If we have authenticated the user and have their details then progress to step 3
-                this.props.navigator.push({ id: 'register.step3' })
+                this.props.navigator.replace({ id: 'dashboard' })
             }
         }
     }
 
     goToRegister() {
         this.props.dispatch(resetLoginForm())
-        this.props.navigator.push({ id: 'register.step1' })
+        this.props.navigator.replace({ id: 'register.step1' })
     }
 
     render() {

@@ -43,6 +43,18 @@ function authentication(state = {
             return Object.assign({}, state, {
                 user: new User(action.response.data)
             });
+        case 'RECEIVE_TAG_SUBSCRIBE':
+            return Object.assign({}, state, {
+                user: new User(action.response.data)
+            });
+        case 'RECEIVE_TAG_UNSUBSCRIBE':
+            return Object.assign({}, state, {
+                user: new User(action.response.data)
+            });
+        case 'RECEIVE_USER_UPDATE':
+            return Object.assign({}, state, {
+                user: new User(action.response.data)
+            });
         default:
             return state;
     }

@@ -6,8 +6,8 @@ class Model {
         this.fill(properties)
     }
 
-    property(key, value = null) {
-        if (value == null) {
+    property(key, value = undefined) {
+        if (value == undefined) {
             return this.properties[key]
         } else {
             // If value is an array and value.data is set then this is a relationship

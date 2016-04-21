@@ -3,7 +3,7 @@ import curious from '../../api'
 const REQUEST_TAG_SUBSCRIBE = 'REQUEST_TAG_SUBSCRIBE'
 const RECEIVE_TAG_SUBSCRIBE = 'RECEIVE_TAG_SUBSCRIBE'
 const REQUEST_TAG_UNSUBSCRIBE = 'REQUEST_TAG_UNSUBSCRIBE'
-const RECEIVE_TAG_UNSUBSCRIBE = 'REQUEST_TAG_UNSUBSCRIBE'
+const RECEIVE_TAG_UNSUBSCRIBE = 'RECEIVE_TAG_UNSUBSCRIBE'
 
 /**
  * Action - Begin making a request to subscribe a user to a tag
@@ -22,9 +22,10 @@ export function requestTagSubscribe() {
 export function sendTagSubscribe(tags) {
     return (dispatch, getState) => {
         dispatch(requestTagSubscribe())
+        var user = getState().api.authentication.user
         return curious(
             'POST',
-            'users/' + getState().api.authentication.user.id + '/tags',
+            'users/' + user.property('id') + '/tags',
             JSON.stringify({
                 'tags': tags
             }),
@@ -63,15 +64,16 @@ export function requestTagUnsubscribe() {
 export function sendTagUnsubscribe(tags) {
     return (dispatch, getState) => {
         dispatch(requestTagUnsubscribe())
+        var user = getState().api.authentication.user
         return curious(
             'DELETE',
-            'tags/' + getState().api.authentication.user.id + '/subscribers',
+            'users/' + user.property('id') + '/tags',
             JSON.stringify({
                 'tags': tags
             }),
             getState()
         ).then(json => {
-            return dispatch(receiveTagUnsubscribe());
+            return dispatch(receiveTagUnsubscribe(json));
         }).done()
     }
 }

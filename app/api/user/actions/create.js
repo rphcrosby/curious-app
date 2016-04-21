@@ -24,7 +24,8 @@ export function sendUserCreate() {
         return curious(
             'POST',
             'users',
-            JSON.stringify(getState().screens.register.step1), getState()
+            JSON.stringify(getState().screens.step1),
+            getState()
         ).then(json => {
             // If an error was received then dispatch an error event
             if (json.status_code == 422) {

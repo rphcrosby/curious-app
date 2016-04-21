@@ -23,9 +23,9 @@ class User extends Model {
      * Checks if the user is subscribed to a tag
      *
      */
-    hasTag(id) {
+    hasTag(name) {
         return _.find(this.property('tags'), function(tag) {
-            return tag.id == id;
+            return tag.property('name') == name;
         }) !== undefined
     }
 }
